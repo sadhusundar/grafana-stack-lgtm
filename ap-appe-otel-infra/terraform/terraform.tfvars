@@ -23,7 +23,7 @@ key_name = "grafana-stack-lgtm"
 
 # New subnet CIDR (verify no overlap with existing subnets)
 # Check existing: aws ec2 describe-subnets --filters "Name=vpc-id,Values=vpc-0018aa4902fa67a2c" --query 'Subnets[*].CidrBlock'
-subnet_cidr = "10.0.64.0/24"
+subnet_id = "subnet-0548c87344ac6f8a2"
 
 # S3 bucket (globally unique, no account number)
 s3_bucket = "ap-appe-otel-observability-store"

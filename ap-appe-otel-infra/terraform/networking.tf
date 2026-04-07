@@ -9,31 +9,9 @@ data "aws_vpc" "main" {
   id = var.vpc_id
 }
 
-# ── New Private Subnet (us-east-1a) ──────────────────────────────────────────
-resource "aws_subnet" "otel_private" {
-  vpc_id                  = var.vpc_id
-  cidr_block              = var.subnet_cidr
-  availability_zone       = var.aws_az
-  map_public_ip_on_launch = false
-
-  tags = {
-    Name = "ap-appe-otel-private-subnet-1a"
-  }
-}
-
-# ── Route Table: private subnet routes to existing infra ─────────────────────
-# We create a dedicated route table so we don't disturb existing subnets.
-resource "aws_route_table" "otel_private" {
-  vpc_id = var.vpc_id
-
-  tags = {
-    Name = "ap-appe-otel-private-rt"
-  }
-}
-
-resource "aws_route_table_association" "otel_private" {
-  subnet_id      = aws_subnet.otel_private.id
-  route_table_id = aws_route_table.otel_private.id
+# ADD this instead:
+data "aws_subnet" "otel_private" {
+  id = var.subnet_id
 }
 
 ###############################################################################

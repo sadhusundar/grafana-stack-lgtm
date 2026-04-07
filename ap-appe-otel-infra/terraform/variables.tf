@@ -56,10 +56,9 @@ variable "key_name" {
 }
 
 # ── Networking ────────────────────────────────────────────────────────────────
-variable "subnet_cidr" {
-  description = "CIDR block for the NEW private subnet in us-east-1a"
+variable "subnet_id" {
+  description = "Existing subnet ID to use"
   type        = string
-  default     = "10.0.64.0/24"  # Adjust if this overlaps with existing subnets
 }
 
 # ── Storage ───────────────────────────────────────────────────────────────────
