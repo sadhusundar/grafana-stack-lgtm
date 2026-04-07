@@ -4,11 +4,11 @@
 
 resource "aws_s3_bucket" "observability" {
   bucket        = var.s3_bucket
-  force_destroy = false   # Protect data in production; set true to allow destroy
+  force_destroy = false
 
   tags = {
     Name    = var.s3_bucket
-    Purpose = "Observability storage (Loki chunks, Tempo traces, Thanos blocks)"
+    Purpose = "Observability storage - Loki chunks, Tempo traces, Thanos blocks"
   }
 }
 
