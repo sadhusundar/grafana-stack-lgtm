@@ -42,7 +42,7 @@ resource "aws_launch_template" "ecs" {
   network_interfaces {
     associate_public_ip_address = false
     security_groups             = [aws_security_group.ecs_instances.id]
-    subnet_id                   = aws_subnet.otel_private.id
+    subnet_id                   = data.aws_subnet.otel_private.id
     delete_on_termination       = true
   }
 

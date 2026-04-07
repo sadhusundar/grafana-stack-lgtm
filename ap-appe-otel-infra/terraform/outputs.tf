@@ -14,7 +14,7 @@ output "ecs_cluster_arn" {
 
 output "subnet_id" {
   description = "New private subnet ID created in us-east-1a"
-  value       = aws_subnet.otel_private.id
+  value       = data.aws_subnet.otel_private.id
 }
 
 output "sg_ecs_tasks_id" {

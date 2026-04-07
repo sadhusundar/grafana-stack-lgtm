@@ -14,6 +14,10 @@ data "aws_subnet" "otel_private" {
   id = var.subnet_id
 }
 
+data "aws_route_table" "otel_private" {
+  subnet_id = data.aws_subnet.otel_private.id
+}
+
 ###############################################################################
 # Security Groups
 ###############################################################################
