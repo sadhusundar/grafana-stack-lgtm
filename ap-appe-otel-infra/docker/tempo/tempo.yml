@@ -1,0 +1,60 @@
+stream_over_http_enabled: true
+
+server:
+  http_listen_port: 3200
+  log_level: info
+
+query_frontend:
+  search:
+    duration_slo: 5s
+    throughput_bytes_slo: 1.073741824e+09
+  trace_by_id:
+    duration_slo: 5s
+
+distributor:
+  receivers:
+    otlp:
+      protocols:
+        grpc:
+          endpoint: "0.0.0.0:4317"
+        http:
+          endpoint: "0.0.0.0:4318"
+
+ingester:
+  max_block_duration: 5m
+
+compactor:
+  compaction:
+    block_retention: 336h
+
+metrics_generator:
+  registry:
+    external_labels:
+      source: tempo
+      cluster: uat
+      environment: uat
+  storage:
+    path: /var/tempo/generator/wal
+    remote_write:
+      - url: ${PROMETHEUS_REMOTE_WRITE_URL}
+        send_exemplars: true
+  traces_storage:
+    path: /var/tempo/generator/traces
+
+storage:
+  trace:
+    backend: s3
+    s3:
+      bucket: ${S3_BUCKET}
+      prefix: tempo
+      region: ${AWS_REGION}
+      # DO NOT set endpoint for native AWS S3 — causes minio client error
+      forcepathstyle: false
+    wal:
+      path: /var/tempo/wal
+
+overrides:
+  defaults:
+    metrics_generator:
+      processors: [service-graphs, span-metrics, local-blocks]
+      generate_native_histograms: both
