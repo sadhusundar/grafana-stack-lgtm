@@ -1,0 +1,53 @@
+###############################################################################
+# prometheus.yml — Prometheus Scrape Configuration
+#
+# Changes from original:
+#   - Removed: node-exporter scrape job (component removed)
+#   - Removed: alloy scrape job (component removed)
+#   - Kept:    self-scrape, loki, tempo, grafana, thanos-sidecar
+#   - Updated: job names to match new ap-appe-otel naming
+###############################################################################
+
+global:
+  scrape_interval:     15s
+  evaluation_interval: 15s
+  external_labels:
+    cluster:     "ap-appe-ecs-otel"
+    environment: "production"
+    region:      "us-east-1"
+
+scrape_configs:
+  # Self-scrape
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["localhost:9090"]
+
+  # Loki metrics endpoint
+  - job_name: "loki"
+    static_configs:
+      - targets: ["loki.observability.local:3100"]
+    metrics_path: /metrics
+
+  # Tempo metrics endpoint
+  - job_name: "tempo"
+    static_configs:
+      - targets: ["tempo.observability.local:3200"]
+    metrics_path: /metrics
+
+  # Grafana metrics endpoint
+  - job_name: "grafana"
+    static_configs:
+      - targets: ["grafana.observability.local:3000"]
+    metrics_path: /metrics
+
+  # Thanos Sidecar metrics (co-located in prometheus task)
+  - job_name: "thanos-sidecar"
+    static_configs:
+      - targets: ["localhost:10902"]
+    metrics_path: /metrics
+
+  # Thanos Query metrics
+  - job_name: "thanos-query"
+    static_configs:
+      - targets: ["thanos-query.observability.local:10902"]
+    metrics_path: /metrics
