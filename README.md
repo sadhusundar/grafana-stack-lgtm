@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # ap-appe-otel — Observability Stack on AWS ECS (EC2 Launch Type)
 
 > **Rebuilt from scratch** per production requirements.  
@@ -557,3 +558,7 @@ ap-appe-otel-infra/
     ├── 05-grafana-access.sh           ← SSH tunnel / SSM to Grafana
     └── 06-teardown.sh                 ← DESTRUCTIVE: destroy all infra
 ```
+=======
+# observability-as-code
+An Observability as Code repository containing OpenTelemetry agent configurations and Terraform code to provision and manage a centralised collector gateway, with integrations to backend observability tools enabling automated, consistent, and scalable telemetry collection, processing, and monitoring across environments.
+>>>>>>> 13b32e5859d348aba1dec7bfe58c4f524290df40
