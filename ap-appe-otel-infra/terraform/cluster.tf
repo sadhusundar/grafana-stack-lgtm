@@ -98,7 +98,7 @@ resource "aws_autoscaling_group" "ecs" {
   min_size            = var.instance_count
   max_size            = var.instance_count
   desired_capacity    = var.instance_count
-  vpc_zone_identifier = [aws_subnet.otel_private.id]
+  vpc_zone_identifier = [data.aws_subnet.otel_private.id]
 
   launch_template {
     id      = aws_launch_template.ecs.id
