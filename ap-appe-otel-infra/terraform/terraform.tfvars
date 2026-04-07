@@ -19,7 +19,7 @@ instance_count = 2
 # ⚠ REQUIRED: Set to your actual EC2 key pair name in us-east-1
 # Find existing pairs: aws ec2 describe-key-pairs --region us-east-1 --query 'KeyPairs[*].KeyName'
 # Create new pair:     aws ec2 create-key-pair --key-name ap-appe-otel-key --query 'KeyMaterial' --output text > ap-appe-otel-key.pem
-key_name = "REPLACE_WITH_YOUR_KEY_PAIR_NAME"
+key_name = "grafana-stack-lgtm"
 
 # New subnet CIDR (verify no overlap with existing subnets)
 # Check existing: aws ec2 describe-subnets --filters "Name=vpc-id,Values=vpc-0018aa4902fa67a2c" --query 'Subnets[*].CidrBlock'

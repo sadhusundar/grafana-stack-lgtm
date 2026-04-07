@@ -36,11 +36,10 @@ data "aws_iam_policy_document" "ec2_trust" {
 ###############################################################################
 resource "aws_iam_role" "ecs_execution" {
   name               = "ap-appe-otel-ecs-execution-role"
-  description        = "ECS Task Execution Role — ECR pull + CloudWatch logs"
+  description        = "ECS Task Execution Role - ECR pull + CloudWatch logs"
   assume_role_policy = data.aws_iam_policy_document.ecs_trust.json
 
   lifecycle {
-    # If role already exists (created by another run), import instead of error
     ignore_changes = [assume_role_policy]
   }
 }
@@ -92,7 +91,7 @@ resource "aws_iam_role_policy" "execution_logs" {
 ###############################################################################
 resource "aws_iam_role" "ecs_task" {
   name               = "ap-appe-otel-ecs-task-role"
-  description        = "ECS Task Role — S3 storage + CloudWatch"
+  description        = "ECS Task Role - S3 storage + CloudWatch"
   assume_role_policy = data.aws_iam_policy_document.ecs_trust.json
 }
 
