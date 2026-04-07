@@ -1,0 +1,28 @@
+###############################################################################
+# bucket.yml — Thanos Object Storage Config (S3)
+#
+# Used by: thanos-sidecar (in prometheus task)
+# This file is baked into the Thanos Docker image via COPY in Dockerfile.
+# AWS credentials come from the ECS Task IAM Role (no keys needed).
+#
+# ⚠ The S3_BUCKET and AWS_REGION values are injected at runtime via
+#   environment variables using -config.expand-env=true equivalent
+#   (Thanos reads env vars natively in objstore config).
+###############################################################################
+
+type: S3
+config:
+  bucket:           "${S3_BUCKET}"
+  region:           "${AWS_REGION}"
+  endpoint:         "s3.${AWS_REGION}.amazonaws.com"
+  # No access_key / secret_key — uses EC2 IAM Role / ECS Task Role
+  insecure:         false
+  signature_version2: false
+  put_user_metadata: {}
+  http_config:
+    idle_conn_timeout:       90s
+    response_header_timeout: 2m
+    insecure_skip_verify:    false
+  trace:
+    enable: false
+  part_size:        67108864   # 64 MiB multipart threshold
